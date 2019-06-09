@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Релизы Джанго !{% endblock %}
+
+{% block content %}
+<div>
+    Релизы Джанго
+</div>
+<ul>
+    {% for elem in obj %}
+        <li>Год: {{ elem.year }}
+            Версия: {{ elem.version }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -8,4 +8,7 @@ urlpatterns = [
     path('tags-if/', views.tags_if),
     path('tags-for/', views.tags_for),
     path('regroup/', views.tag_regroup),
+    path('base/', views.base),
+    path('adrian', views.adrian),
+    path('release', views.release),
 ]

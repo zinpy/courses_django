@@ -118,3 +118,32 @@ def tag_regroup(request):
         "people_for_test": people_for_test,
     }
     return render(request, 'regroup.html', context)
+
+
+def base(request):
+    # context = {}
+    return render(request, 'base.html')
+
+
+def adrian(request):
+    context = {
+        'name': 'Андриан',
+        'surname': 'Головатый'
+    }
+    return render(request, 'adrian.html', context)
+
+
+def release(request):
+    obj = (
+        {'year': 2015, 'version': '1.8'},
+        {'year': 2016, 'version': '1.9'},
+        {'year': '2016-2017', 'version': '1.10'},
+        {'year': 2017, 'version': '1.11'},
+        {'year': 2018, 'version': '2.0'},
+    )
+
+    context = {
+        'obj': obj,
+    }
+
+    return render(request, 'release.html', context)

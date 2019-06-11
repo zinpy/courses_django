@@ -22,6 +22,7 @@ urlpatterns = [
     path('lesson-two-part2/', include('lesson_two_part2.urls')),
     path('lesson-two-response/', include('lesson_two_response.urls')),
     path('lesson-third/', include('lesson_third.urls')),
+    path('lesson-fourth/', include('lesson_fourth.urls')),
     # path('', include('lesson_one.urls')),
     path('admin/', admin.site.urls),
 ]

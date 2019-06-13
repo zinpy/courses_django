@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
+from django.views.generic import TemplateView
 
 
 def test_view(request):
@@ -40,14 +41,16 @@ def file_input(request):
     return HttpResponse('Данные успешно были записаны!')
 
 
-def form(request):
-    author = forms.AuthorForm
-    article = forms.ArticleForm
-    context = {
-        'author': author,
-        'article': article
-    }
-    return render(request, 'form.html', context)
+# def form(request):
+#     author = forms.AuthorForm
+#     article = forms.ArticleForm
+#     form_contact = forms.ContactForm
+#     context = {
+#         'author': author,
+#         'article': article,
+#         'form_contact': form_contact
+#     }
+#     return render(request, 'form.html', context)
 
 
 def add_author(request):
@@ -64,3 +67,54 @@ def add_article(request):
     if request.method == "POST" and form_.is_valid():
         form_.save()
         return HttpResponse("Статья добавлена!")
+
+
+class ContactFormView(TemplateView):
+
+    author = forms.AuthorForm
+    article = forms.ArticleForm
+    form_contact = forms.ContactForm
+
+    def post(self, request):
+        form = self.form_contact(request.POST)
+        context = {
+            'author': self.author,
+            'article': self.article,
+            'form_contact': form,
+
+        }
+        if form.is_valid():
+            data = form.cleaned_data
+            return HttpResponse(data.items())
+        else:
+            return render(request, 'form.html', context)
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'author': self.author,
+            'article': self.article,
+            'form_contact': self.form_contact
+        }
+        return render(request, 'form.html', context)
+
+
+class UrlView(TemplateView):
+    form_submit_url = forms.UrlForm
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'form_url': self.form_submit_url
+        }
+        return render(request, 'url_form.html', context)
+
+    def post(self, request):
+        form = forms.UrlForm(request.POST)
+
+        if form.is_valid():
+            return HttpResponse(form.cleaned_data.items())
+        else:
+            context = {
+                'form_url': form
+            }
+            return render(request, 'url_form.html', context)
+

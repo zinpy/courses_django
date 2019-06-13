@@ -1,0 +1,9 @@
+{% extends 'form.html' %}
+
+{% block form %}
+<form action="/lesson-fifth/url-form" method="post">
+    {% csrf_token %}
+    {{form_url.as_p}}
+    <input type="submit" value = 'submit'>
+</form>
+{% endblock %}
